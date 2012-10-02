@@ -21,29 +21,26 @@ exports.index = function(req, res){
  * Render remove page.
  */
 exports.remove = function(req, res){
-  res.render('remove', {title: 'ToDo List with Mongoose and Express', h1: 'Remove an item!'})
+  console.log("Removing: " + req.params.id);
+  Todos.findById(req.params.id, function(error, todo){
+  	todo.remove( function(error, todo){
+  		res.redirect('/');
+  	});
+  });
 };
 
 /*
- * Create ToDo function. Note to self: Express BodyParser is not working,
- * switch to Connect module and use their bodyparser for this function to work.
+ * Create ToDo function. Works perfectly, redirects back to index.
  */
 
-exports.create = function(req, req){
-	new Todos({
+exports.create = function(req, res){
+	console.log(req.body.content);
+	var temptodo = new Todos({
 		title: req.body.content,
 		created_at: Date.now(),
 		completed: false
-	}).save( function(error, Todos){
-		res.redirect('/');
+	});
+	temptodo.save( function(error, Todos){
+			res.redirect('/');
 	});
 }
-
-/*
- * Destroy function.
- */
-
- exports.destroy = function(req, res){
- 	var todo_id = req.params.id;
- 	this.destroy();
- };

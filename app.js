@@ -2,10 +2,10 @@
  * Require all the modules needed. 
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , http = require('http')
-  , path = require('path');
+var express = require('express');
+var http = require('http');
+var path = require('path');
+var connect = require('connect');
   require('./db');
 
 var app = express();
@@ -20,11 +20,9 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.cookieParser('your secret here'));
-  app.use(express.session());
-  app.use(app.router);
+  app.use(connect.urlencoded());
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(app.router);
 });
 
 /*
@@ -34,10 +32,11 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
-
+var routes = require('./routes');
 app.get('/', routes.index);
-app.get('/remove', routes.remove);
+app.get('/delete/:id', routes.remove);
 app.post('/create', routes.create);
+
 console.log("Creating HTTP server..");
 
 http.createServer(app).listen(app.get('port'), function(){
