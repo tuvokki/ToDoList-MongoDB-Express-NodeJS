@@ -1,6 +1,5 @@
-
-/**
- * Module dependencies.
+/*
+ * Require all the modules needed. 
  */
 
 var express = require('express')
@@ -11,6 +10,9 @@ var express = require('express')
 
 var app = express();
 
+/*
+ * Configure Express..
+ */
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -25,12 +27,18 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
+/*
+ * Use development mode to use the error handler.
+ */
+
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
 app.get('/', routes.index);
 app.get('/remove', routes.remove);
+app.post('/create', routes.create);
+console.log("Creating HTTP server..");
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
