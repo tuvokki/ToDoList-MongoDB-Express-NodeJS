@@ -1,4 +1,4 @@
-A Simple ToDo List using Mongoose, Express and Node.JS
-=====================================================
+A Simple ToDo App using Mongoose and Express
+============================================
 
 Created by Andrew Vy.
