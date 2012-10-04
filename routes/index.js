@@ -18,6 +18,16 @@ exports.index = function(req, res){
 };
 
 /*
+ * Render Mobile-version of the site.
+ */
+ exports.mobile = function(req, res){
+  Todos.find( function(error, todos){
+    console.log(todos);
+    res.render('mobile', { title: 'ToDo List with Mongoose and Express', h1: 'ToDo List', todos: todos});
+  });
+};
+
+/*
  * Render remove page.
  */
 exports.remove = function(req, res){

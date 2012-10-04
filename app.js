@@ -32,6 +32,7 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
+
 var routes = require('./routes');
 app.get('/', routes.index);
 app.get('/delete/:id', routes.remove);

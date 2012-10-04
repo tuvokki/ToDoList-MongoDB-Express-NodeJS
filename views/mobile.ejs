@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+  </head>
+  <body>
+    <div class="hero-unit"><h1><%= h1 %></h1>
+    <p>Welcome! Add your todo to the list, or delete completed tasks!</p></div>
+    <div class="row">
+    	<div class="list offset2 span4">
+    	<table class="table table-striped">
+    	<thead><tr><th>ToDos</th></tr></thead>
+            <% todos.forEach( function (todo){ %>
+    		<tr><td><%= todo.title %> <a href="/delete/<%= todo._id %>">Delete</a></td></tr>
+            <% }); %>
+    	</table>
+    	</div>
+	</div>
+	<div class="row">
+    <div class="offset2 input-append">
+    	<form action="/create" method="post">
+    			<input type="text" name="content" autofocus="autofocus"/>
+    			<input type="submit" class="btn" name="todo-submit" value="Add To List"/>
+    	</form>
+    </div>
+	</div>
+  </body>
+</html>
