@@ -12,23 +12,23 @@ var Todos = mongoose.model('Todos');
 
 exports.index = function(req, res){
   Todos.find( function(error, todos){
-  	console.log(todos);
   	res.render('index', { title: 'ToDo List with Mongoose and Express', h1: 'ToDo List', todos: todos});
   });
 };
 
 /*
- * Render Mobile-version of the site.
+ * Render Mobile-version of the site, switch to mobile template.
  */
+ 
  exports.mobile = function(req, res){
   Todos.find( function(error, todos){
     console.log(todos);
-    res.render('mobile', { title: 'ToDo List with Mongoose and Express', h1: 'ToDo List', todos: todos});
+    res.render('mobile', { title: 'ToDo List with Mongoose and Express: Mobile Version', h1: 'ToDo List', todos: todos});
   });
 };
 
 /*
- * Render remove page.
+ * Render remove page, execute remove function and redirect back to index page.
  */
 exports.remove = function(req, res){
   console.log("Removing: " + req.params.id);
@@ -40,7 +40,31 @@ exports.remove = function(req, res){
 };
 
 /*
- * Create ToDo function. Works perfectly, redirects back to index.
+ * Render complete page, execute complete function and redirect back to index page.
+ */
+
+exports.completed = function(req, res){
+  console.log("Completing: " + req.params.id);
+  Todos.findById(req.params.id, function(error, todo){
+    todo.completed = true;
+    todo.completed_at = Date.now();
+    todo.save( function(error){
+      res.redirect('/');
+    });
+    });
+  };
+
+exports.uncomplete = function(req, res){
+  console.log("Uncompleting: " + req.params.id);
+  Todos.findById(req.params.id, function(error, todo){
+    todo.completed = false;
+    todo.save( function(error){
+      res.redirect('/');
+    });
+  });
+};
+/*
+ * Create ToDo function and redirect back to index page.
  */
 
 exports.create = function(req, res){
@@ -54,3 +78,7 @@ exports.create = function(req, res){
 			res.redirect('/');
 	});
 }
+
+
+
+

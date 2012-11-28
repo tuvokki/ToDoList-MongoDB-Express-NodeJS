@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+.checkbox {
+	margin-bottom: 15px;
+}
+
+.completed {
+	text-decoration: line-through;	
+}

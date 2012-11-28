@@ -6,19 +6,23 @@
   </head>
   <body>
     <div class="hero-unit"><h1><%= h1 %></h1>
-    <p>Welcome! Add your todo to the list, or delete completed tasks!</p></div>
-    <div class="row">
-    	<div class="list offset2 span4">
-    	<table class="table table-striped">
-    	<thead><tr><th>ToDos</th></tr></thead>
+    <p>Welcome! Add your ToDo to the list, or delete completed tasks!</p></div>
+    <div class="row-fluid">
+    	<div class="list offset3 span6">
+    	<table class="table table-hover table-bordered">
+    	<thead class="span6"><tr><th>ToDos</th></tr></thead>
+        <tbody>
             <% todos.forEach( function (todo){ %>
-    		<tr><td><%= todo.title %> <a href="/delete/<%= todo._id %>">Delete</a></td></tr>
+    		<tr><td
+                <% if( todo.completed == true ){ %> class="completed" <%}%> 
+                > <%= todo.title %></td><td><% if ( todo.completed == false ) { %><a href="/complete/<%= todo._id %>">Complete</a><%}%> <% if ( todo.completed == true ) { %><a href="/uncomplete/<%= todo._id %>">Uncomplete</a><%}%></td><td><a href="/delete/<%= todo._id %>">Delete</a></td></tr>
             <% }); %>
+        </tbody>
     	</table>
     	</div>
 	</div>
-	<div class="row">
-    <div class="offset2 input-append">
+	<div class="row-fluid">
+    <div class="list offset3 input-append">
     	<form action="/create" method="post">
     			<input type="text" name="content" autofocus="autofocus"/>
     			<input type="submit" class="btn" name="todo-submit" value="Add To List"/>

@@ -11,6 +11,7 @@ var Todo = new Schema({
 	title: String,
 	created_at: Date,
 	completed: Boolean,
+	completed_at: Date,
 });
 
 /*

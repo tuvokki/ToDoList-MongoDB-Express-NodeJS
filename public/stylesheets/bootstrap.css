@@ -5772,3 +5772,16 @@ a.badge:hover {
 .affix {
   position: fixed;
 }
+
+.completed {
+  text-decoration: line-through;
+}
+
+td {
+  white-space: nowrap;
+}
+
+date {
+  font-style: italic;
+  font-size: 8px;
+}
