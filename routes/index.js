@@ -5,6 +5,7 @@
 require('../db');
 var mongoose = require('mongoose');
 var Todos = mongoose.model('Todos');
+var Tags = mongoose.model('Tags');
 
 /*
  * Query MongoDB and pass it into our index page.
@@ -12,8 +13,13 @@ var Todos = mongoose.model('Todos');
 
 exports.index = function(req, res){
   console.log("request.headers.username", req.headers.authorization);
+  var tags;
+  Tags.find( function(error, foundTags){
+    tags = foundTags;
+    console.log("error finding tags", error);
+  });
   Todos.find( function(error, todos){
-  	res.render('index', { title: 'TVK: Vakantie ToDoLijst', h1: 'We gaan op vaknassie!', todos: todos});
+  	res.render('index', { title: 'TVK: Vakantie ToDoLijst', h1: 'We gaan op vaknassie!', todos: todos, tags: tags});
   });
 };
 
@@ -66,10 +72,10 @@ exports.uncomplete = function(req, res){
     });
   });
 };
+
 /*
  * Create ToDo function and redirect back to index page.
  */
-
 exports.create = function(req, res){
 	console.log(req.body.content);
 	var temptodo = new Todos({
@@ -83,6 +89,15 @@ exports.create = function(req, res){
 	});
 }
 
-
-
-
+exports.createTag = function(req, res){
+  console.log(req.body.content);
+  var temptag = new Tags({
+    name: req.body.name,
+    created_at: Date.now(),
+    create_user: req.headers.authorization
+  });
+  console.log("adding tag: " + temptag.name);
+  temptag.save( function(error, Tags){
+      res.redirect(localPath + '/');
+  });
+}

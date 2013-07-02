@@ -7,6 +7,12 @@ var Schema = mongoose.Schema;
 
 mongoose.connect('mogodb://gemini/zwadonk_todos');
 
+var Tag = new Schema({
+	name: String,
+	completed_at: Date,
+	create_user: String,
+});
+
 var Todo = new Schema({
 	title: String,
 	created_at: Date,
@@ -14,12 +20,14 @@ var Todo = new Schema({
 	completed_at: Date,
 	create_user: String,
 	modified_user: String,
+	tagged: [Tag],
 });
 
 /*
  * Create the Todo Model.
  */
 
+var Tags = mongoose.model('Tags', Tag);
 var Todos = mongoose.model('Todos', Todo);
 
 /*

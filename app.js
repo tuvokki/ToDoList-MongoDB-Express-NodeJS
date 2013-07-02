@@ -43,8 +43,9 @@ var routes = require('./routes');
 app.get('/', routes.index);
 app.get('/delete/:id', routes.remove);
 app.get('/complete/:id', routes.completed);
-app.get('/uncomplete/:id', routes.uncomplete)
+app.get('/uncomplete/:id', routes.uncomplete);
 app.post('/create', routes.create);
+app.post('/createTag', routes.createTag);
 
 console.log("Creating HTTP server..");
 
