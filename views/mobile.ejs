@@ -2,28 +2,38 @@
 <html lang="en">
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='<%= localPath %>/stylesheets/bootstrap.css' />
   </head>
   <body>
     <div class="hero-unit"><h1><%= h1 %></h1>
-    <p>Welcome! Add your todo to the list, or delete completed tasks!</p></div>
+    <p>Welkom op de vakantie todolijst van de Snuutjes!<br>Voeg een todo toe, markeer als compleet of verwijder ze hier.</p></div>
     <div class="row">
     	<div class="list offset2 span4">
     	<table class="table table-striped">
-    	<thead><tr><th>ToDos</th></tr></thead>
+    	<thead><tr><th>Wat moeten we nog doen ...</th></tr></thead>
             <% todos.forEach( function (todo){ %>
-    		<tr><td><%= todo.title %> <a href="/delete/<%= todo._id %>">Delete</a></td></tr>
+    		<tr><td><%= todo.title %> <a href="<%= localPath %>/delete/<%= todo._id %>" onclick="return makesure();">Verwijder</a></td></tr>
             <% }); %>
     	</table>
     	</div>
 	</div>
 	<div class="row">
     <div class="offset2 input-append">
-    	<form action="/create" method="post">
+    	<form action="<%= localPath %>/create" method="post">
     			<input type="text" name="content" autofocus="autofocus"/>
-    			<input type="submit" class="btn" name="todo-submit" value="Add To List"/>
+    			<input type="submit" class="btn" name="todo-submit" value="Voeg toe"/>
     	</form>
     </div>
 	</div>
+    <script type="text/javascript">
+     function makesure() {
+      if (confirm('Zeker weten?\n\n Je kan een todo ook als \'compleet\' markeren!\n\n Echt weggooien?!?')) {
+        return true;
+      }
+      else {
+        return false;
+      }
+     }
+    </script>
   </body>
 </html>

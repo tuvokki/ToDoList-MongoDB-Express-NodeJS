@@ -11,8 +11,9 @@ var Todos = mongoose.model('Todos');
  */
 
 exports.index = function(req, res){
+  console.log("request.headers.username", req.headers.authorization);
   Todos.find( function(error, todos){
-  	res.render('index', { title: 'ToDo List with Mongoose and Express', h1: 'ToDo List', todos: todos});
+  	res.render('index', { title: 'TVK: Vakantie ToDoLijst', h1: 'We gaan op vakatie!', todos: todos});
   });
 };
 
@@ -23,7 +24,7 @@ exports.index = function(req, res){
  exports.mobile = function(req, res){
   Todos.find( function(error, todos){
     console.log(todos);
-    res.render('mobile', { title: 'ToDo List with Mongoose and Express: Mobile Version', h1: 'ToDo List', todos: todos});
+    res.render('mobile', { title: 'TVK: Vakantie ToDoLijst Mobile', h1: 'We gaan op vakatie!', todos: todos});
   });
 };
 
@@ -34,7 +35,7 @@ exports.remove = function(req, res){
   console.log("Removing: " + req.params.id);
   Todos.findById(req.params.id, function(error, todo){
   	todo.remove( function(error, todo){
-  		res.redirect('/');
+  		res.redirect(localPath + '/');
   	});
   });
 };
@@ -48,8 +49,9 @@ exports.completed = function(req, res){
   Todos.findById(req.params.id, function(error, todo){
     todo.completed = true;
     todo.completed_at = Date.now();
+    todo.modified_user = req.headers.authorization;
     todo.save( function(error){
-      res.redirect('/');
+      res.redirect(localPath + '/');
     });
     });
   };
@@ -58,8 +60,9 @@ exports.uncomplete = function(req, res){
   console.log("Uncompleting: " + req.params.id);
   Todos.findById(req.params.id, function(error, todo){
     todo.completed = false;
+    todo.modified_user = req.headers.authorization;
     todo.save( function(error){
-      res.redirect('/');
+      res.redirect(localPath + '/');
     });
   });
 };
@@ -72,10 +75,11 @@ exports.create = function(req, res){
 	var temptodo = new Todos({
 		title: req.body.content,
 		created_at: Date.now(),
-		completed: false
+		completed: false,
+    create_user: req.headers.authorization
 	});
 	temptodo.save( function(error, Todos){
-			res.redirect('/');
+			res.redirect(localPath + '/');
 	});
 }
 

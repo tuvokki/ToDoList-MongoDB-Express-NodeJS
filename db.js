@@ -5,13 +5,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-mongoose.connect('mogodb://localhost/todos');
+mongoose.connect('mogodb://gemini/zwadonk_todos');
 
 var Todo = new Schema({
 	title: String,
 	created_at: Date,
 	completed: Boolean,
 	completed_at: Date,
+	create_user: String,
+	modified_user: String,
 });
 
 /*

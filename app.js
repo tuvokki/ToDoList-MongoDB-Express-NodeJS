@@ -10,12 +10,14 @@ var connect = require('connect');
 
 var app = express();
 
+// This variable is used to construct the url
+localPath = "";
 /*
  * Configure Express with the needed dependencies.
  */
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 7610);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.favicon());
