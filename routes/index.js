@@ -13,7 +13,7 @@ var Todos = mongoose.model('Todos');
 exports.index = function(req, res){
   console.log("request.headers.username", req.headers.authorization);
   Todos.find( function(error, todos){
-  	res.render('index', { title: 'TVK: Vakantie ToDoLijst', h1: 'We gaan op vakatie!', todos: todos});
+  	res.render('index', { title: 'TVK: Vakantie ToDoLijst', h1: 'We gaan op vaknassie!', todos: todos});
   });
 };
 
@@ -24,7 +24,7 @@ exports.index = function(req, res){
  exports.mobile = function(req, res){
   Todos.find( function(error, todos){
     console.log(todos);
-    res.render('mobile', { title: 'TVK: Vakantie ToDoLijst Mobile', h1: 'We gaan op vakatie!', todos: todos});
+    res.render('mobile', { title: 'TVK: Vakantie ToDoLijst Mobile', h1: 'We gaan op vaknassie!', todos: todos});
   });
 };
 
